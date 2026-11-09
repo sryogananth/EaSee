@@ -27,8 +27,6 @@ export const SyncModal: React.FC<SyncModalProps> = ({
 
   if (!isOpen) return null;
 
-  const syncPayload = exportSyncPayload(profile);
-
   const handleCopyCode = () => {
     navigator.clipboard.writeText(profile.syncCode || 'STAR-77');
     setCopied(true);
@@ -77,93 +75,85 @@ export const SyncModal: React.FC<SyncModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border-4 border-sky-300 p-6 md:p-8 overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/50 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="relative w-[94vw] sm:w-full max-w-lg glass-card bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/95 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[92dvh] my-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
         >
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5" />
         </button>
 
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 bg-sky-100 text-sky-800 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
-            <Cloud className="w-4 h-4 text-sky-600" />
+        <div className="text-center mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-1.5 bg-sky-100/90 text-sky-800 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 border border-sky-200">
+            <Cloud className="w-3.5 h-3.5 text-sky-600" />
             <span>Cross-Device Cloud Sync</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-800">
             Play Anywhere, Anytime! 🚀
           </h2>
-          <p className="text-slate-600 text-sm mt-1">
-            Pick up your lessons on a school laptop, home tablet, or parent phone without losing your stars!
+          <p className="text-slate-500 text-xs mt-0.5">
+            Pick up your lessons on school laptop, family iPad, or phone without losing your stars!
           </p>
 
-          <div className="flex items-center justify-center gap-6 mt-4 text-slate-500">
-            <div className="flex items-center gap-1.5 text-xs font-bold">
-              <Laptop className="w-4 h-4 text-indigo-500" /> Laptop
-            </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold">
-              <Tablet className="w-4 h-4 text-emerald-500" /> Tablet / iPad
-            </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold">
-              <Smartphone className="w-4 h-4 text-amber-500" /> Mobile
-            </div>
+          <div className="flex items-center justify-center gap-4 mt-3 text-slate-500">
+            <span className="flex items-center gap-1 text-[11px] font-bold"><Laptop className="w-3.5 h-3.5 text-indigo-500" /> Laptop</span>
+            <span className="flex items-center gap-1 text-[11px] font-bold"><Tablet className="w-3.5 h-3.5 text-emerald-500" /> Tablet</span>
+            <span className="flex items-center gap-1 text-[11px] font-bold"><Smartphone className="w-3.5 h-3.5 text-amber-500" /> Phone</span>
           </div>
         </div>
 
         {/* Tab switcher */}
-        <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-6">
+        <div className="flex glass-pill p-1 rounded-2xl mb-4">
           <button
             onClick={() => setActiveTab('sync')}
-            className={`flex-1 py-2.5 rounded-xl font-bold text-sm transition-all ${
+            className={`flex-1 py-2 rounded-xl font-bold text-xs transition-all ${
               activeTab === 'sync'
-                ? 'bg-white text-sky-700 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-sky-800 shadow-xs'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            Save & Sync This Device
+            Save & Sync Device
           </button>
           <button
             onClick={() => setActiveTab('import')}
-            className={`flex-1 py-2.5 rounded-xl font-bold text-sm transition-all ${
+            className={`flex-1 py-2 rounded-xl font-bold text-xs transition-all ${
               activeTab === 'import'
-                ? 'bg-white text-sky-700 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-sky-800 shadow-xs'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            Pick Up From Another Device
+            Load From Another Device
           </button>
         </div>
 
         {activeTab === 'sync' ? (
-          <div className="space-y-5">
-            {/* Sync Code Box */}
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl p-5 text-center">
-              <p className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">
+          <div className="space-y-4">
+            <div className="glass-card-amber p-4 rounded-2xl text-center">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-800 mb-0.5">
                 Your Child Sync Code
               </p>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-3xl font-black font-mono tracking-widest text-amber-950">
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-2xl sm:text-3xl font-black font-mono tracking-widest text-amber-950">
                   {profile.syncCode || 'STAR-77'}
                 </span>
                 <button
                   type="button"
                   onClick={handleCopyCode}
-                  className="bg-amber-400 hover:bg-amber-500 active:scale-95 text-amber-950 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1 shadow-sm transition-all"
+                  className="bg-amber-400 hover:bg-amber-500 active:scale-95 text-amber-950 px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1 shadow-xs transition-all"
                 >
-                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied!' : 'Copy'}</span>
                 </button>
               </div>
-              <p className="text-xs text-amber-800 mt-2 font-medium">
-                Keep this 6-character code handy! Type it on any device to restore your stars and stickers.
+              <p className="text-[10px] text-amber-900 mt-1.5 font-medium">
+                Type this 6-character code on any device to restore stars and stickers!
               </p>
             </div>
 
-            {/* Email Magic Link form */}
-            <form onSubmit={handleSendEmail} className="bg-sky-50 border border-sky-200 rounded-2xl p-4 space-y-3">
-              <label className="block text-xs font-bold text-sky-900 uppercase tracking-wider flex items-center gap-1.5">
-                <Mail className="w-4 h-4 text-sky-600" />
+            <form onSubmit={handleSendEmail} className="glass-card-sky p-3.5 rounded-2xl space-y-2">
+              <label className="block text-[11px] font-bold text-sky-900 uppercase tracking-wider flex items-center gap-1">
+                <Mail className="w-3.5 h-3.5 text-sky-600" />
                 <span>Send Magic Backup Link to Email</span>
               </label>
               <div className="flex gap-2">
@@ -175,41 +165,37 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                     setEmailSent(false);
                   }}
                   placeholder="parent@example.com"
-                  className="flex-1 px-4 py-2.5 rounded-xl border border-sky-200 text-sm font-medium outline-none focus:ring-2 focus:ring-sky-400"
+                  className="flex-1 px-3 py-2 rounded-xl border border-sky-200 text-xs font-medium outline-none glass-pill"
                 />
                 <button
                   type="submit"
-                  className="bg-sky-600 hover:bg-sky-700 active:scale-95 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all shadow-sm"
+                  className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-3 py-2 rounded-xl text-xs shadow-xs"
                 >
-                  Save Email
+                  Save
                 </button>
               </div>
               {emailSent && (
-                <div className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg p-2.5 flex items-center gap-2">
-                  <Check className="w-4 h-4 shrink-0" />
-                  <span>Success! Your sync profile is linked to {emailInput}. A restore link has been prepared!</span>
+                <div className="text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-2 flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 shrink-0" />
+                  <span>Success! Saved to {emailInput}.</span>
                 </div>
               )}
             </form>
 
-            {/* Direct JSON backup button */}
-            <div className="flex items-center justify-between pt-1">
-              <button
-                type="button"
-                onClick={handleDownloadBackup}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-sm font-bold transition-colors"
-              >
-                <Download className="w-4 h-4 text-slate-500" />
-                <span>Download Offline Backup File (.json)</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handleDownloadBackup}
+              className="w-full flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl glass-pill hover:bg-white text-slate-600 text-xs font-bold transition-colors"
+            >
+              <Download className="w-3.5 h-3.5 text-slate-500" />
+              <span>Download Backup File (.json)</span>
+            </button>
           </div>
         ) : (
-          /* Import tab */
-          <div className="space-y-5">
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-              <p className="text-xs text-slate-600 font-medium mb-3">
-                Paste your Child Sync Code, backup string, or file content below to load all your saved stars, completed islands, and stickers!
+          <div className="space-y-3">
+            <div className="glass-card p-3.5 rounded-2xl">
+              <p className="text-xs text-slate-600 font-medium mb-2">
+                Paste your Child Sync Code, backup string, or file content below:
               </p>
               <textarea
                 value={importCode}
@@ -218,19 +204,19 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                   setImportStatus('idle');
                 }}
                 rows={3}
-                placeholder="Paste your sync string or backup code here..."
-                className="w-full p-3 font-mono text-xs rounded-xl border border-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none"
+                placeholder="Paste backup code here..."
+                className="w-full p-2.5 font-mono text-xs rounded-xl border border-slate-200 outline-none glass-pill"
               />
               {importStatus === 'error' && (
-                <p className="text-xs font-bold text-rose-600 mt-2 flex items-center gap-1">
-                  <ShieldAlert className="w-4 h-4 shrink-0" />
-                  Invalid sync code or backup format. Please check and try again!
+                <p className="text-[11px] font-bold text-rose-600 mt-1.5 flex items-center gap-1">
+                  <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
+                  Invalid code. Please check and try again!
                 </p>
               )}
               {importStatus === 'success' && (
-                <p className="text-xs font-bold text-emerald-600 mt-2 flex items-center gap-1">
-                  <Check className="w-4 h-4 shrink-0" />
-                  Progress successfully restored! Loading player card...
+                <p className="text-[11px] font-bold text-emerald-600 mt-1.5 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 shrink-0" />
+                  Progress successfully restored!
                 </p>
               )}
             </div>
@@ -238,7 +224,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
             <button
               type="button"
               onClick={handleImportSubmit}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-black py-3.5 px-6 rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 bouncy-btn"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3 px-6 rounded-2xl shadow-md transition-all flex items-center justify-center gap-1.5 text-xs bouncy-glass-btn"
             >
               <Upload className="w-4 h-4" />
               <span>Restore Progress on This Device</span>

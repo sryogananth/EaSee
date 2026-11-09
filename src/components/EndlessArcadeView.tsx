@@ -7,7 +7,7 @@ import { SortingBasketsGame } from './games/SortingBasketsGame';
 import { MatrixOddOneOutGame } from './games/MatrixOddOneOutGame';
 import { PhysicalMidlineGym } from './games/PhysicalMidlineGym';
 import { sound } from '../utils/sound';
-import { Sparkles, Gamepad2, Play, Volume2, Star } from 'lucide-react';
+import { Gamepad2, Star } from 'lucide-react';
 
 interface EndlessArcadeViewProps {
   profile: UserProfile;
@@ -29,42 +29,42 @@ export const EndlessArcadeView: React.FC<EndlessArcadeViewProps> = ({
   };
 
   const games = [
-    { id: 'balloon' as const, name: 'Balloon Pop', emoji: '🎈', color: 'border-sky-300 bg-sky-50', desc: 'Pop floating targets before they escape!' },
-    { id: 'trace' as const, name: 'Rainbow Trace', emoji: '✏️', color: 'border-amber-300 bg-amber-50', desc: 'Motor memory checkpoints & stroke order' },
-    { id: 'sort' as const, name: 'Sorting Baskets', emoji: '🧺', color: 'border-indigo-300 bg-indigo-50', desc: 'Feed characters into animal homes' },
-    { id: 'matrix' as const, name: 'Odd-One-Out', emoji: '🕵️', color: 'border-rose-300 bg-rose-50', desc: 'Spot mirror-flipped intruder letters' },
-    { id: 'midline' as const, name: 'Midline Gym', emoji: '🧠', color: 'border-teal-300 bg-teal-50', desc: 'Lazy 8 tracking & bilateral rhythm' },
+    { id: 'balloon' as const, name: 'Balloon Pop', emoji: '🎈', desc: 'Spot and pop targets' },
+    { id: 'trace' as const, name: 'Rainbow Trace', emoji: '✏️', desc: 'Guided stroke checkpoints' },
+    { id: 'sort' as const, name: 'Baskets', emoji: '🧺', desc: 'Feed character homes' },
+    { id: 'matrix' as const, name: 'Odd-One-Out', emoji: '🕵️', desc: 'Find mirror intruders' },
+    { id: 'midline' as const, name: 'Midline Gym', emoji: '🧠', desc: 'Lazy 8 & bilateral taps' },
   ];
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 animate-fade-in pb-12">
+    <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6 animate-fade-in w-full">
       {/* Top Banner */}
-      <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 border-4 border-sky-300 shadow-md flex flex-wrap items-center justify-between gap-4">
+      <div className="glass-card-sky p-4 sm:p-6 rounded-3xl flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div className="inline-flex items-center gap-2 bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-1">
-            <Gamepad2 className="w-4 h-4 text-sky-600" />
+          <div className="inline-flex items-center gap-1.5 bg-sky-200/80 text-sky-900 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider mb-1">
+            <Gamepad2 className="w-3.5 h-3.5 text-sky-700" />
             <span>Endless Practice Lab</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-slate-800">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-800">
             Play As Long As You Like! 🚀
           </h2>
-          <p className="text-slate-600 text-sm mt-0.5">
-            Pick any confusing letter or number pair and test your skills with 5 different mini-games!
+          <p className="text-slate-600 text-xs sm:text-sm mt-0.5">
+            Pick any confusing letter or number pair and test your skills with 5 mini-games!
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-amber-100 border border-amber-300 px-4 py-2 rounded-2xl">
-          <Star className="w-5 h-5 text-amber-500 fill-amber-400" />
-          <span className="font-black text-amber-950 text-base">{profile.stars} Total Stars</span>
+        <div className="flex items-center gap-1.5 glass-pill px-3 py-1.5 rounded-2xl">
+          <Star className="w-4 h-4 text-amber-500 fill-amber-400" />
+          <span className="font-black text-amber-950 text-xs sm:text-sm">{profile.stars} Total Stars</span>
         </div>
       </div>
 
       {/* Confusion Pair Selector Bar */}
       <div>
-        <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2 px-1">
-          Choose Confusion Pair to Practice:
+        <label className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1.5 px-1">
+          Choose Confusion Pair:
         </label>
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2.5">
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
           {CONFUSION_PAIRS.map((pair) => {
             const isSelected = selectedPairId === pair.id;
             return (
@@ -75,17 +75,17 @@ export const EndlessArcadeView: React.FC<EndlessArcadeViewProps> = ({
                   sound.playPop(480);
                   sound.speak(`${pair.charA} versus ${pair.charB}`);
                 }}
-                className={`py-3 px-2 rounded-2xl font-black transition-all border-2 flex flex-col items-center justify-center ${
+                className={`py-2 sm:py-3 px-1.5 rounded-2xl font-black transition-all border flex flex-col items-center justify-center ${
                   isSelected
-                    ? 'border-indigo-500 bg-indigo-50 scale-105 shadow-md ring-2 ring-indigo-200'
-                    : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+                    ? 'border-indigo-400 bg-indigo-50/90 scale-105 shadow-md ring-2 ring-indigo-300'
+                    : 'glass-card hover:bg-white/90'
                 }`}
               >
-                <span className="text-2xl font-black font-dyslexic text-slate-800">
-                  {pair.charA} <span className="text-slate-400 font-normal text-xs">vs</span> {pair.charB}
+                <span className="text-lg sm:text-2xl font-black font-dyslexic text-slate-800">
+                  {pair.charA} <span className="text-slate-400 font-normal text-[10px]">vs</span> {pair.charB}
                 </span>
-                <span className="text-[10px] font-bold text-indigo-700 mt-1 truncate max-w-full">
-                  {pair.category}
+                <span className="text-[9px] font-bold text-indigo-700 truncate max-w-full">
+                  {pair.charA}/{pair.charB}
                 </span>
               </button>
             );
@@ -94,7 +94,7 @@ export const EndlessArcadeView: React.FC<EndlessArcadeViewProps> = ({
       </div>
 
       {/* Game Mode Selector Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
         {games.map((g) => {
           const isActive = activeGame === g.id;
           return (
@@ -104,15 +104,15 @@ export const EndlessArcadeView: React.FC<EndlessArcadeViewProps> = ({
                 setActiveGame(g.id);
                 sound.playPop(520);
               }}
-              className={`p-3.5 rounded-2xl border-2 text-left transition-all ${
+              className={`p-3 rounded-2xl border text-left transition-all ${
                 isActive
-                  ? `${g.color} ring-4 ring-indigo-300 scale-102 shadow-md`
-                  : 'bg-white border-slate-200 hover:bg-slate-50'
+                  ? 'glass-card-purple border-purple-400 ring-2 ring-purple-300 scale-102 shadow-sm'
+                  : 'glass-card hover:bg-white/80'
               }`}
             >
-              <span className="text-3xl block mb-1">{g.emoji}</span>
-              <h4 className="font-extrabold text-sm text-slate-800">{g.name}</h4>
-              <p className="text-[11px] text-slate-500 font-medium leading-tight mt-1">
+              <span className="text-2xl sm:text-3xl block mb-0.5">{g.emoji}</span>
+              <h4 className="font-extrabold text-xs sm:text-sm text-slate-800">{g.name}</h4>
+              <p className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5 truncate">
                 {g.desc}
               </p>
             </button>
@@ -121,7 +121,7 @@ export const EndlessArcadeView: React.FC<EndlessArcadeViewProps> = ({
       </div>
 
       {/* Active Game Stage */}
-      <div className="pt-2">
+      <div className="pt-1">
         {activeGame === 'balloon' && (
           <BalloonPopGame
             pair={selectedPair}

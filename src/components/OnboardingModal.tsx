@@ -3,7 +3,7 @@ import { UserProfile, GenderType, AvatarType } from '../types';
 import { AVATARS } from '../utils/theme';
 import { sound } from '../utils/sound';
 import { fireStarBurst } from '../utils/confetti';
-import { Sparkles, Heart, Rocket, Volume2, ShieldCheck, Mail, ArrowRight, UserCheck } from 'lucide-react';
+import { Sparkles, Rocket, Volume2, ShieldCheck, Mail, ArrowRight } from 'lucide-react';
 
 interface OnboardingModalProps {
   isOpen: boolean;
@@ -39,41 +39,36 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border-4 border-amber-300 p-6 md:p-8 overflow-hidden my-auto">
-        {/* Playful background decorative blobs */}
-        <div className="absolute -top-12 -right-12 w-40 h-40 bg-amber-100 rounded-full blur-2xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-sky-100 rounded-full blur-2xl pointer-events-none" />
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/50 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="relative w-[94vw] sm:w-full max-w-xl glass-card bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/95 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[92dvh] my-auto">
+        
         {/* Header */}
-        <div className="text-center mb-6 relative">
-          <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-1.5 rounded-full text-sm font-bold tracking-wide mb-2 shadow-sm">
-            <Sparkles className="w-4 h-4 text-amber-600 animate-spin" />
+        <div className="text-center mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-1.5 bg-amber-100/90 text-amber-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-amber-200">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-spin" />
             <span>Welcome to EaSee Kids Club!</span>
             <button
               onClick={handleSpeakWelcome}
               type="button"
-              className="ml-1 p-1 hover:bg-amber-200 rounded-full transition-colors"
-              title="Read aloud"
+              className="ml-1 p-0.5 hover:bg-amber-200 rounded-full transition-colors"
             >
-              <Volume2 className="w-4 h-4 text-amber-700" />
+              <Volume2 className="w-3.5 h-3.5 text-amber-800" />
             </button>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">
-            Let's Make Your Player Card! 🎨
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+            Make Your Player Card! 🎨
           </h2>
-          <p className="text-slate-600 font-medium text-sm md:text-base mt-1">
-            No password needed! Saved right on this device so you can play in seconds.
+          <p className="text-slate-500 font-medium text-xs sm:text-sm mt-0.5">
+            No password required. Saved locally on this device.
           </p>
         </div>
 
         {step === 1 ? (
-          <div className="space-y-6">
-            {/* Child's Nickname */}
+          <div className="space-y-4 sm:space-y-5">
+            {/* Nickname */}
             <div>
-              <label className="block text-slate-700 font-bold mb-2 text-base md:text-lg flex items-center gap-2">
-                <span>What is your name or superhero nickname?</span>
-                <span className="text-amber-500 font-normal text-xs">(Whatever you like!)</span>
+              <label className="block text-slate-700 font-bold mb-1.5 text-xs sm:text-sm">
+                What is your name or superhero nickname?
               </label>
               <input
                 type="text"
@@ -81,16 +76,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Leo, Maya, Super Sam..."
                 maxLength={20}
-                className="w-full text-xl font-bold px-5 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all placeholder:text-slate-400 placeholder:font-normal"
+                className="w-full text-base sm:text-lg font-bold px-4 py-2.5 sm:py-3 rounded-2xl border border-slate-200 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all glass-pill"
               />
             </div>
 
-            {/* Age selector (4 - 12+) */}
+            {/* Age Selector */}
             <div>
-              <label className="block text-slate-700 font-bold mb-2 text-base md:text-lg">
-                How old are you? <span className="text-slate-400 text-sm font-normal">(We adjust game speed and size for your age!)</span>
+              <label className="block text-slate-700 font-bold mb-1.5 text-xs sm:text-sm">
+                How old are you? <span className="text-slate-400 font-normal">(Scales speed & size)</span>
               </label>
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((a) => {
                   const isSelected = age === a;
                   return (
@@ -101,10 +96,10 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
                         setAge(a);
                         sound.playPop(350 + a * 30);
                       }}
-                      className={`flex-1 min-w-[54px] py-3 rounded-2xl font-black text-lg md:text-xl transition-all ${
+                      className={`flex-1 min-w-[38px] sm:min-w-[48px] py-2 sm:py-2.5 rounded-xl font-black text-sm sm:text-base transition-all ${
                         isSelected
-                          ? 'bg-amber-400 text-amber-950 scale-105 shadow-md border-2 border-amber-500'
-                          : 'bg-slate-100 text-slate-700 hover:bg-amber-100 hover:scale-102 border-2 border-transparent'
+                          ? 'bg-amber-400 text-amber-950 scale-105 shadow-sm border border-amber-500'
+                          : 'glass-pill text-slate-700 hover:bg-amber-50'
                       }`}
                     >
                       {a === 12 ? '12+' : a}
@@ -114,16 +109,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
               </div>
             </div>
 
-            {/* Gender / Hero Identity */}
+            {/* Hero Badge Identity */}
             <div>
-              <label className="block text-slate-700 font-bold mb-2 text-base">
+              <label className="block text-slate-700 font-bold mb-1.5 text-xs sm:text-sm">
                 Choose your hero badge:
               </label>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-2">
                 {[
-                  { id: 'boy' as GenderType, label: 'Boy Explorer', emoji: '👦', bg: 'bg-blue-50 border-blue-200 text-blue-800' },
-                  { id: 'girl' as GenderType, label: 'Girl Explorer', emoji: '👧', bg: 'bg-pink-50 border-pink-200 text-pink-800' },
-                  { id: 'prefer-not-say' as GenderType, label: 'Super Star', emoji: '🌟', bg: 'bg-purple-50 border-purple-200 text-purple-800' }
+                  { id: 'boy' as GenderType, label: 'Boy Explorer', emoji: '👦', bg: 'glass-card-sky text-blue-900' },
+                  { id: 'girl' as GenderType, label: 'Girl Explorer', emoji: '👧', bg: 'glass-card-purple text-pink-900' },
+                  { id: 'prefer-not-say' as GenderType, label: 'Super Star', emoji: '🌟', bg: 'glass-card-amber text-purple-900' }
                 ].map((g) => {
                   const active = gender === g.id;
                   return (
@@ -134,26 +129,26 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
                         setGender(g.id);
                         sound.playPop(480);
                       }}
-                      className={`p-3 rounded-2xl border-2 flex items-center justify-center gap-2 font-bold transition-all ${
+                      className={`p-2.5 rounded-2xl border flex items-center justify-center gap-1.5 font-bold text-xs transition-all ${
                         active
-                          ? 'border-amber-500 bg-amber-100 text-amber-900 scale-102 shadow-sm'
+                          ? 'border-amber-500 bg-amber-100/90 text-amber-950 scale-102 shadow-xs'
                           : `${g.bg} opacity-80 hover:opacity-100`
                       }`}
                     >
-                      <span className="text-2xl">{g.emoji}</span>
-                      <span className="text-sm">{g.label}</span>
+                      <span className="text-xl">{g.emoji}</span>
+                      <span className="truncate">{g.label.split(' ')[0]}</span>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Avatar Selection */}
+            {/* Companion Avatars */}
             <div>
-              <label className="block text-slate-700 font-bold mb-2 text-base">
+              <label className="block text-slate-700 font-bold mb-1.5 text-xs sm:text-sm">
                 Pick your friendly companion:
               </label>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                 {AVATARS.map((av) => {
                   const active = avatar === av.id;
                   return (
@@ -165,16 +160,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
                         sound.playPop(520);
                         sound.speak(av.tagline);
                       }}
-                      className={`relative flex flex-col items-center p-3 rounded-2xl border-2 transition-all ${
+                      className={`relative flex flex-col items-center p-2 rounded-2xl border transition-all ${
                         active
-                          ? 'border-indigo-500 bg-indigo-50 shadow-md scale-105'
-                          : 'border-slate-100 bg-slate-50 hover:bg-slate-100'
+                          ? 'border-indigo-400 bg-indigo-50/90 shadow-sm scale-105'
+                          : 'glass-card hover:bg-white'
                       }`}
                     >
-                      <span className="text-3xl mb-1">{av.emoji}</span>
-                      <span className="text-xs font-bold text-slate-700">{av.label}</span>
+                      <span className="text-2xl mb-0.5">{av.emoji}</span>
+                      <span className="text-[10px] font-bold text-slate-700 truncate w-full">{av.label.split(' ')[0]}</span>
                       {active && (
-                        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-indigo-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold">
+                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-indigo-600 text-white rounded-full text-[9px] flex items-center justify-center font-bold">
                           ✓
                         </span>
                       )}
@@ -184,40 +179,34 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
               </div>
             </div>
 
-            {/* Next / Proceed button */}
-            <div className="pt-2 flex items-center justify-between">
-              <button
-                type="button"
-                onClick={() => setStep(2)}
-                className="w-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-amber-950 font-black text-lg py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-101 active:scale-98 transition-all flex items-center justify-center gap-3 bouncy-btn"
-              >
-                <span>Continue to Cloud Sync & Start</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setStep(2)}
+              className="w-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-amber-950 font-black text-base py-3.5 px-6 rounded-2xl shadow-md glass-action-btn flex items-center justify-center gap-2 mt-2"
+            >
+              <span>Continue to Cloud Sync & Start</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         ) : (
-          /* Step 2: Optional Email Registration & Multi-device pickup */
-          <div className="space-y-6">
-            <div className="bg-sky-50 border-2 border-sky-200 rounded-2xl p-5 text-sky-950">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-200 flex items-center justify-center shrink-0 text-xl">
-                  ☁️
-                </div>
+          <div className="space-y-4">
+            <div className="glass-card-sky p-4 rounded-2xl text-sky-950">
+              <div className="flex items-start gap-2.5">
+                <span className="text-2xl">☁️</span>
                 <div>
-                  <h4 className="font-extrabold text-base md:text-lg text-sky-900">
-                    Play Across Laptop, iPad, Tablet or Phone!
+                  <h4 className="font-black text-sm text-sky-900">
+                    Play Across Laptop, iPad or Phone!
                   </h4>
-                  <p className="text-sm text-sky-800 mt-1">
-                    Your progress is already safely saved on this device. If you'd like to pick up on your school Chromebook, family iPad, or home laptop, you can enter a parent email below or get your secret 6-digit sync code!
+                  <p className="text-xs text-sky-800 mt-0.5">
+                    Your progress is saved locally. If you'd like to pick up on your school iPad or home laptop, enter an optional email below!
                   </p>
                 </div>
               </div>
             </div>
 
             <div>
-              <label className="block text-slate-700 font-bold mb-2 text-base flex items-center gap-2">
-                <Mail className="w-4 h-4 text-sky-600" />
+              <label className="block text-slate-700 font-bold mb-1.5 text-xs sm:text-sm flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-sky-600" />
                 <span>Parent Email (Optional):</span>
               </label>
               <input
@@ -225,49 +214,43 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="parent@example.com (optional)"
-                className="w-full text-lg font-medium px-5 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none transition-all placeholder:text-slate-400"
+                className="w-full text-sm font-medium px-4 py-2.5 rounded-2xl border border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-100 outline-none glass-pill"
               />
-              <p className="text-xs text-slate-500 mt-1.5 flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Zero spam guarantee. Used only to send your restore link so your stars are never lost!</span>
+              <p className="text-[10px] text-slate-500 mt-1 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span>Zero spam guarantee. Used only to send restore links.</span>
               </p>
             </div>
 
-            <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200 flex items-center justify-between">
+            <div className="glass-card-amber p-3 rounded-2xl flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-amber-700">Your Child Sync Code</p>
-                <p className="text-xl font-black text-amber-950 font-mono tracking-widest">{initialProfile.syncCode || 'STAR-77'}</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-amber-800">Child Sync Code</p>
+                <p className="text-lg font-black text-amber-950 font-mono tracking-widest">{initialProfile.syncCode || 'STAR-77'}</p>
               </div>
-              <span className="text-xs text-amber-800 max-w-[200px] text-right">
-                Type this on any other device to load this exact progress!
+              <span className="text-[10px] text-amber-900 max-w-[150px] text-right font-medium">
+                Type this on other devices to load this progress!
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <div className="flex gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="py-3 px-5 rounded-2xl text-slate-600 font-bold hover:bg-slate-100 transition-colors"
+                className="py-2.5 px-4 rounded-xl text-slate-600 font-bold hover:bg-slate-100 text-xs"
               >
                 ← Back
               </button>
               <button
                 type="button"
                 onClick={handleFinish}
-                className="flex-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 text-white font-black text-lg py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:scale-101 active:scale-98 transition-all flex items-center justify-center gap-3 bouncy-btn"
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm py-3 px-6 rounded-2xl shadow-md glass-action-btn flex items-center justify-center gap-2"
               >
-                <Rocket className="w-5 h-5" />
-                <span>Blast Off & Start Practicing!</span>
+                <Rocket className="w-4 h-4" />
+                <span>Start Practicing!</span>
               </button>
             </div>
           </div>
         )}
-
-        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-center gap-6 text-xs text-slate-400 font-semibold">
-          <span className="flex items-center gap-1">🔒 100% Private & Kid-Safe</span>
-          <span className="flex items-center gap-1">⚡ Instant Local Storage</span>
-          <span className="flex items-center gap-1">✨ Dyslexia Art Directed</span>
-        </div>
       </div>
     </div>
   );

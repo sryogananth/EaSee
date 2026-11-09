@@ -133,11 +133,16 @@ export const App: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 relative ${currentTint.bg} ${
+      className={`min-h-screen transition-colors duration-500 relative overflow-x-hidden max-w-full ${currentTint.bg} ${
         profile.settings.useDyslexicFont ? 'font-dyslexic-override' : 'font-lexend'
       }`}
       style={{ backgroundColor: currentTint.hex }}
     >
+      {/* Dynamic Ambient Glass Glow Orbs */}
+      <div className="ambient-glow-1" />
+      <div className="ambient-glow-2" />
+      <div className="ambient-glow-3" />
+
       {/* Dyslexic Reading Ruler Highlight strip */}
       <ReadingRuler
         enabled={profile.settings.readingRuler}
@@ -156,8 +161,8 @@ export const App: React.FC = () => {
         onChangeView={setActiveView}
       />
 
-      {/* Main Container Views */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      {/* Main Container Views - with bottom padding for mobile dock */}
+      <main className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 pb-28 md:pb-12">
         {activeView === 'daily' && (
           <DailyQuestView
             profile={profile}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ConfusionPair } from '../../types';
 import { sound } from '../../utils/sound';
 import { fireStarBurst } from '../../utils/confetti';
-import { Search, Volume2, Sparkles, Trophy, RefreshCw } from 'lucide-react';
+import { Volume2, Trophy, RefreshCw } from 'lucide-react';
 
 interface MatrixOddOneOutGameProps {
   pair: ConfusionPair;
@@ -15,7 +15,7 @@ export const MatrixOddOneOutGame: React.FC<MatrixOddOneOutGameProps> = ({
   childAge,
   onCompleteRound,
 }) => {
-  const gridSize = childAge <= 5 ? 3 : 4; // 3x3 for little ones, 4x4 for older
+  const gridSize = childAge <= 5 ? 3 : 4;
   const totalTiles = gridSize * gridSize;
 
   const [round, setRound] = useState(1);
@@ -73,24 +73,26 @@ export const MatrixOddOneOutGame: React.FC<MatrixOddOneOutGameProps> = ({
   };
 
   return (
-    <div className="relative w-full rounded-3xl bg-gradient-to-b from-rose-50/70 to-pink-50/70 border-4 border-rose-200 p-4 md:p-8 shadow-sm">
+    <div className="relative w-full rounded-3xl glass-card p-4 sm:p-6 md:p-8 shadow-sm border border-white/90">
       {/* Top Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 sm:mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-rose-700">Odd-One-Out Detective</span>
-            <span className="bg-rose-200 text-rose-900 text-xs font-black px-2 py-0.5 rounded-full">
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-rose-700 bg-rose-100/90 px-2 py-0.5 rounded-full">
+              Detective Hunt 🕵️
+            </span>
+            <span className="text-xs font-black text-slate-500">
               Round {round} / {maxRounds}
             </span>
           </div>
-          <h3 className="text-xl md:text-2xl font-black text-slate-800 flex items-center gap-2 mt-1">
-            <span>Spot the Odd</span>
-            <span className="text-3xl text-rose-600 font-dyslexic font-black px-2 py-0.5 bg-white rounded-xl shadow-xs border border-rose-200">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-slate-800 flex items-center gap-2 mt-1">
+            <span>Find the Odd</span>
+            <span className="text-2xl sm:text-3xl text-rose-600 font-dyslexic font-black px-2 py-0.5 glass-card-amber rounded-xl">
               {oddChar}
             </span>
             <button
               onClick={() => sound.speak(`Find the intruder letter ${oddChar}!`, true)}
-              className="p-1 hover:bg-rose-100 rounded-full text-rose-600 transition-colors"
+              className="p-1 hover:bg-rose-100/80 rounded-full text-rose-600 transition-colors"
             >
               <Volume2 className="w-4 h-4" />
             </button>
@@ -98,14 +100,14 @@ export const MatrixOddOneOutGame: React.FC<MatrixOddOneOutGameProps> = ({
         </div>
 
         <div className="text-right">
-          <span className="text-xs font-bold text-slate-500">Detective Score</span>
-          <div className="text-lg font-black text-rose-950">{correctTotal} Stars</div>
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500">Stars</span>
+          <div className="text-base sm:text-lg font-black text-rose-950">⭐ {correctTotal}</div>
         </div>
       </div>
 
       {/* Grid Matrix */}
       <div
-        className="max-w-md mx-auto grid gap-3 p-4 bg-white/80 rounded-3xl border-2 border-rose-200 shadow-md"
+        className="max-w-md mx-auto grid gap-2 sm:gap-3 p-3 sm:p-4 glass-card bg-white/75 rounded-3xl border border-white/90 shadow-sm"
         style={{
           gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
         }}
@@ -119,10 +121,10 @@ export const MatrixOddOneOutGame: React.FC<MatrixOddOneOutGameProps> = ({
             <button
               key={i}
               onClick={() => handleTileClick(i)}
-              className={`aspect-square rounded-2xl flex items-center justify-center font-black text-3xl md:text-4xl transition-all duration-150 border-2 select-none font-dyslexic ${
+              className={`aspect-square rounded-2xl flex items-center justify-center font-black text-2xl sm:text-3xl md:text-4xl transition-all duration-150 select-none font-dyslexic bouncy-glass-btn ${
                 wasWrong
-                  ? 'bg-rose-100 border-rose-300 text-rose-400 opacity-60 scale-95'
-                  : 'bg-white border-slate-200 hover:border-rose-400 hover:bg-rose-50 hover:scale-105 active:scale-95 shadow-sm text-slate-800'
+                  ? 'bg-rose-100/80 border-rose-300 text-rose-400 opacity-50 scale-95'
+                  : 'bg-white/80 border-white/90 text-slate-800 hover:scale-105'
               }`}
             >
               {char}
@@ -131,12 +133,12 @@ export const MatrixOddOneOutGame: React.FC<MatrixOddOneOutGameProps> = ({
         })}
       </div>
 
-      {/* Victory modal */}
+      {/* Finished Modal */}
       {isFinished && (
-        <div className="mt-6 bg-white rounded-2xl border-2 border-rose-300 p-5 text-center max-w-sm mx-auto shadow-md animate-scale-in">
-          <Trophy className="w-12 h-12 text-amber-500 mx-auto mb-2" />
-          <h4 className="text-xl font-black text-slate-800">Sharp Eyed Detective!</h4>
-          <p className="text-xs text-slate-600 mt-1 mb-4">
+        <div className="mt-4 glass-card bg-white/95 p-4 sm:p-5 text-center max-w-sm mx-auto shadow-md animate-scale-in">
+          <Trophy className="w-10 h-10 text-amber-500 mx-auto mb-1.5" />
+          <h4 className="text-lg font-black text-slate-800">Sharp Eyed Detective!</h4>
+          <p className="text-xs text-slate-600 mt-0.5 mb-3">
             You spotted all the hidden {oddChar}'s without getting confused!
           </p>
           <button
@@ -145,9 +147,9 @@ export const MatrixOddOneOutGame: React.FC<MatrixOddOneOutGameProps> = ({
               setCorrectTotal(0);
               startNewRound(1);
             }}
-            className="w-full bg-rose-500 hover:bg-rose-600 text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 bouncy-btn"
+            className="w-full bg-rose-500 hover:bg-rose-600 text-white font-black py-2.5 rounded-xl flex items-center justify-center gap-1.5 bouncy-glass-btn text-xs"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-3.5 h-3.5" />
             <span>Play Again</span>
           </button>
         </div>
